@@ -1,8 +1,12 @@
-@extends('backend.layouts.master')
-@section('content')
+<!DOCTYPE html>
+<html>
+<head>
+  <title>hdbcjhdb</title>
+   <script src="https://cdnjs.cloudflare.com/ajax/libs/notify/0.4.2/notify.min.js"></script>
 
-
-
+  
+</head>
+<body>
 <div class="content-wrapper">
     <!-- Content Header (Page header) -->
     <div class="content-header">
@@ -21,79 +25,89 @@
       </div><!-- /.container-fluid -->
     </div>
     <!-- /.content-header -->
-
+@if ($message = Session::get('success'))
+<div class="alert alert-success alert-block">
+    <button type="button" class="close" data-dismiss="alert">×</button>    
+    <strong>{{ $message }}</strong>
+</div>
+@endif
     <!-- Main content -->
-    <section class="contfffent">
+     <section class="content">
       <div class="container-fluid">
-        <!-- Small boxes (Stat box) -->
         <div class="row">
-          <div class="col-md-12">
-            <div class="card">
+          <div class="col-12">
+             <div class="card">
               <div class="card-header">
-                <h4>Staff Details
-<a class="btn btn-success float-right" href=""> <i class="fa fa-plus-circle">Add Staff </i></a>
-                </h4>
 
+                <h3>Staff Details
+                      <a class="btn btn-primary btn-sm float-right" href="{{route('staff.add')}}"> <i class="fa fa-plus-circle">Add Staff </i></a>
+                      </h3>
               </div>
+              <!-- /.card-header -->
               <div class="card-body">
-                <table id="example1" class="table table-bordered table-striped" >
+          <table id="example1" class="table table-bordered table-striped display nowrap" style="width:100%">
                   <thead>
                   <tr>
-                    
-                        <th >No</th>
-                        <th >Staff id</th>
-                        <th >Name</th>
-                        <th >Mail</th>
-                        <th >Phone</th>
-                        <th >Date of birth</th>
-                        <th >Password</th>
-                        <th >Question</th>
-                        <th >Answer</th>
-                        <th >Picture</th>
-                        <th >Status</th>
-                        <th >Creation date</th>
-                        <th >Action</th>
-
-      
-
-                 </tr>
-                  </thead>
-                  <tbody>
-                    @foreach($alldata as $key=> $staff)
-                  <tr>
-                    <td>{{++$key}}</td>
-                    <td>{{$staff->staffid}}</td>
-                    <td>{{$staff->staffname}}</td>
-                    <td>{{$staff->email}}</td>
-                    <td>{{$staff->phone}}</td>
-                    <td>{{$staff->dateofbirth}}</td>
-                    <td>{{$staff->password}}</td>
-                    <td>{{$staff->security_question}}</td>
-                    <td>{{$staff->answer}}</td>
-                    <td>{{$staff->picture}}</td>
-                    <td>{{$staff->status}}</td>
-                    <td>{{$staff->creationdate}}</td>
-                    <td><a title="view" class="btn btn-sm btn-success"href="">view</i></a>
-                    <td><a title="edit" class="btn btn-sm btn-primary"href="">edit</i></a>
-                    <td><a title="delete" class="btn btn-sm btn-danger"href="">delete</i></a>
-
-                    </td>
-                    
+                    <tr>
+                            
+                            <th >No</th>
+                            <th >Staff id</th>
+                            <th >Name</th>
+                            <th >Mail</th>
+                            <th >Phone</th>
+                            <th >Date of birth</th>
+                            <th >Password</th>
+                            <th >Question</th>
+                            <th >Answer</th>
+                            <th >Picture</th>
+                            <th >Status</th>
+                            <th >Creation date</th>
+                            <th >Action</th>
+                            
+                          </tr>
                   </tr>
-              @endforeach
-                  </tbody>
+                  </thead>
+                   <tbody>
+                          @foreach($alldata as $key=> $staff)
+                          <tr>
+                            <td>{{++$key}}</td>
+                            <td>{{$staff->staffid}}</td>
+                            <td>{{$staff->staffname}}</td>
+                            <td>{{$staff->email}}</td>
+                            <td>{{$staff->phone}}</td>
+                            <td>{{$staff->dateofbirth}}</td>
+                            <td>{{$staff->password}}</td>
+                            <td>{{$staff->security_question}}</td>
+                            <td>{{$staff->answer}}</td>
+                            <td>{{$staff->picture}}</td>
+                            <td>{{$staff->status}}</td>
+                            <td>{{$staff->creationdate}}</td>
+                            
+        <td><a title="edit" class="btn btn-sm btn-primary"href="{{route('staff.edit',$staff->id)}}">edit</i></a>
+        </td>
+        <td><a title="delete" class="btn btn-sm btn-danger"href="{{route('staff.delete',$staff->id)}}">delete</i></a>
+                          </td>
+                          
+                        </tr>
+                        @endforeach
+                      </tbody>
+                  <tfoot>
                   
+                  </tfoot>
                 </table>
               </div>
+              <!-- /.card-body -->
             </div>
+            <!-- /.card -->
           </div>
-          <!-- ./col -->
+          <!-- /.col -->
         </div>
         <!-- /.row -->
-       
-      </div><!-- /.container-fluid -->
+      </div>
+      <!-- /.container-fluid -->
     </section>
     <!-- /.content -->
   </div>
+</body>
+</html>
 
-  @endsection
