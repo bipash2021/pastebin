@@ -75,7 +75,30 @@
                             <td>{{$student->creationdate}}</td>
                             
         <td><a title="edit" class="btn btn-sm btn-primary"href="{{route('student.edit',$student->id)}}">edit</i></a>
-        <td><a title="delete" class="btn btn-sm btn-danger"href="{{route('student.delete',$student->id)}}">delete</i></a>
+        <td><a title="delete" class="btn btn-sm btn-danger" data-toggle="modal" data-target="#myModal{{$student->id}}">delete</i></a>
+                          <!-- Button to Open the Modal -->
+                          <!-- The Modal -->
+                          <div class="modal" id="myModal{{$student->id}}">
+                            <div class="modal-dialog">
+                              <div class="modal-content">
+                                <!-- Modal Header -->
+                                <div class="modal-header">
+                                  <h4 class="modal-title"></h4>
+                                  <button type="button" class="close" data-dismiss="modal">&times;</button>
+                                </div>
+                                <!-- Modal body -->
+                                <div class="modal-body">
+                                  Are You Sure Want to delete {{$student->studentname}}?
+                                </div>
+                                <!-- Modal footer -->
+                                <div class="modal-footer">
+                            <a class="btn btn-md btn-danger" href="{{route('student.delete',$student->id)}}">Delete</a>
+                                  <button type="button" class="btn btn-primary" data-dismiss="modal">Cancel</button>
+                                  
+                                </div>
+                              </div>
+                            </div>
+                          </div>
                           </td>
                           
                         </tr>

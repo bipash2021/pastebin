@@ -7,11 +7,7 @@ use Illuminate\Http\Request;
 
 class StudentController extends Controller
 {
-    /**
-     * Display a listing of the resource.
-     *
-     * @return \Illuminate\Http\Response
-     */
+    
      public function view()
     {
         $data['alldata']=Student::all();
@@ -19,52 +15,59 @@ class StudentController extends Controller
         return view('backend.student.view',$data);
     }
 
-    /**
-     * Show the form for creating a new resource.
-     *
-     * @return \Illuminate\Http\Response
-     */
+    
     public function add()
     {
         return view('backend.student.add');
     }
 
-    /**
-     * Store a newly created resource in storage.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @return \Illuminate\Http\Response
-     */
+    
     public function store(Request $request)
     {
-        //  $request->validate([
-        //     'name' => 'required',
-        //     'detail' => 'required',
-        // ]);
-    
-        Student::create($request->all());
+        
+     $request->validate([
+          'studentid' => 'required',
+           'studentname' => 'required',
+           'email' => 'required',
+           'phone' => 'required | numeric',
+           'dateofbirth' => 'required',
+           'password' => 'required',
+           'security_question' => 'required',
+           'answer' => 'required',
+           'status' => 'required',
+           'status' => 'required',
+           // 'picture' => 'mimes:jpg,bmp,png',
+        ]);
+       
+        $student = new Student;
+        $student->studentid=$request->studentid;
+        $student->studentname=$request->studentname;
+        $student->email=$request->email;
+        $student->phone=$request->phone;
+        $student->dateofbirth=$request->dateofbirth;
+        $student->password=$request->password;
+        $student->security_question=$request->security_question;
+        $student->answer=$request->answer;
+        
+        $student->status=$request->status;
+
+        if ($request->hasfile('picture')){
+
+            $file=$request->file('picture');
+            $extention=$file->getClientOriginalExtension();
+            $filename=time().'.'.$extention;
+            $file->move('uploads/students',$filename);
+            $student->picture=$filename;
+        }
+
+        $student->save();
      
         return redirect()->route('student.view')
                         ->with('success','Info added successfully.');
     }
 
-    /**
-     * Display the specified resource.
-     *
-     * @param  \App\Models\student  $student
-     * @return \Illuminate\Http\Response
-     */
-    public function show(student $student)
-    {
-        //
-    }
-
-    /**
-     * Show the form for editing the specified resource.
-     *
-     * @param  \App\Models\student  $student
-     * @return \Illuminate\Http\Response
-     */
+    
+    
     public function edit($id)
     {
         $editdata=Student::find($id);
@@ -72,45 +75,53 @@ class StudentController extends Controller
         return view('backend.student.edit',compact('editdata'));
     }
 
-    /**
-     * Update the specified resource in storage.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @param  \App\Models\student  $student
-     * @return \Illuminate\Http\Response
-     */
+    
     public function update(Request $request, student $student,$id)
     {
-        //  $request->validate([
-        //     'name' => 'required',
-        //     'detail' => 'required',
-        // ]);
+             $request->validate([
+          'studentid' => 'required',
+           'studentname' => 'required',
+           'email' => 'required',
+           'phone' => 'required | numeric',
+           'dateofbirth' => 'required',
+           'password' => 'required',
+           'security_question' => 'required',
+           'answer' => 'required',
+           'status' => 'required',
+           'status' => 'required',
+           // 'picture' => 'mimes:JPG,jpg,bmp,png',
+        ]);
+        
+        $student=Student::find($id);
+        $student->studentid=$request->studentid;
+        $student->studentname=$request->studentname;
+        $student->email=$request->email;
+        $student->phone=$request->phone;
+        $student->dateofbirth=$request->dateofbirth;
+        $student->password=$request->password;
+        $student->security_question=$request->security_question;
+        $student->answer=$request->answer;
+        
+        $student->status=$request->status;
 
-        $data=Student::find($id);
-        $data->studentid=$request->studentid;
-        $data->studentname=$request->studentname;
-        $data->email=$request->email;
-        $data->phone=$request->phone;
-        $data->dateofbirth=$request->dateofbirth;
-        $data->password=$request->password;
-        $data->security_question=$request->security_question;
-        $data->answer=$request->answer;
-        $data->picture=$request->picture;
-        $data->status=$request->status;
-        $data->save();
+        if ($request->hasfile('picture')){
+
+            $file=$request->file('picture');
+            $extention=$file->getClientOriginalExtension();
+            $filename=time().'.'.$extention;
+            $file->move('uploads/students',$filename);
+            $student->picture=$filename;
+        }
+
+        $student->save();
+       
     
         
     
-        return redirect()->route('student.view')
-                        ->with('success','student Info updated successfully');
-    }
-
-    /**
-     * Remove the specified resource from storage.
-     *
-     * @param  \App\Models\student  $student
-     * @return \Illuminate\Http\Response
-     */
+        return redirect()->route('student.view')->with('success','Student Info Updated successfully');
+                        
+}
+    
     public function delete(student $student,$id)
     {
 

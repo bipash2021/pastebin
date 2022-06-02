@@ -20,6 +20,11 @@ Route::get('/', function () {
 
 Auth::routes();
 
+Route::group(['middleware'=>'auth'],function(){
+
+
+
+
 Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
 
 
@@ -46,7 +51,7 @@ Route::get('/delete/{id}', [App\Http\Controllers\StudentController::class, 'dele
 
 });
 
-
+});
 
 
 
