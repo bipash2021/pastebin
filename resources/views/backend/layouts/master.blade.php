@@ -53,7 +53,7 @@
             <a class="nav-link" data-widget="pushmenu" href="#" role="button"><i class="fas fa-bars"></i></a>
           </li>
           <li class="nav-item d-none d-sm-inline-block">
-            <a href="index3.html" class="nav-link">Home</a>
+            <a href="{{route('home')}}" class="nav-link">Home</a>
           </li>
           <li class="nav-item d-none d-sm-inline-block">
             <a href="#" class="nav-link">Contact</a>
@@ -110,7 +110,7 @@
           </li>
           
         </ul>
-        
+      <!-- success message -->
         @if ($message = Session::get('success'))
         <div class="alert alert-success alert-block">
           <button type="button" class="close" data-dismiss="alert">×</button>
@@ -131,7 +131,7 @@
           <!-- Sidebar user panel (optional) -->
           <div class="user-panel mt-3 pb-3 mb-3 d-flex">
             <div class="image">
-              <img src="{{asset('dist/img/user2-160x160.jpg')}}" class="img-circle elevation-2" alt="User Image">
+              <img src="{{asset('uploads/staffs/images.png')}}" class="img-circle elevation-2" alt="User Image">
             </div>
             <div class="info">
               <a href="#" class="d-block">pastebin</a>

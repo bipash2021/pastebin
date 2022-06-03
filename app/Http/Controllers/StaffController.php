@@ -8,11 +8,7 @@ use App\Models\Stuff;
 
 class StaffController extends Controller
 {
-    /**
-     * Display a listing of the resource.
-     *
-     * @return \Illuminate\Http\Response
-     */
+    
     public function view()
     {
         $data['alldata']=Staff::all();
@@ -20,52 +16,62 @@ class StaffController extends Controller
         return view('backend.staff.view',$data);
     }
 
-    /**
-     * Show the form for creating a new resource.
-     *
-     * @return \Illuminate\Http\Response
-     */
+    
     public function add()
     {
         return view('backend.staff.add');
     }
 
-    /**
-     * Store a newly created resource in storage.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @return \Illuminate\Http\Response
-     */
+    
     public function store(Request $request)
     {
-        //  $request->validate([
-        //     'name' => 'required',
-        //     'detail' => 'required',
-        // ]);
-    
-        Staff::create($request->all());
+        $request->validate([
+          'staffid' => 'required',
+           'staffname' => 'required',
+           'email' => 'required',
+           'phone' => 'required | numeric',
+           'dateofbirth' => 'required',
+           'password' => 'required',
+           'security_question' => 'required',
+           'answer' => 'required',
+           'status' => 'required',
+           'status' => 'required',
+           'picture' => 'mimes:jpg,bmp,png',
+        ]);
+
+        $staff = new Staff;
+        $staff->staffid=$request->staffid;
+        $staff->staffname=$request->staffname;
+        $staff->email=$request->email;
+        $staff->phone=$request->phone;
+        $staff->dateofbirth=$request->dateofbirth;
+        $staff->password=$request->password;
+        $staff->security_question=$request->security_question;
+        $staff->answer=$request->answer;
+        
+        $staff->status=$request->status;
+
+        if ($request->hasfile('picture')){
+
+            $file=$request->file('picture');
+            $extention=$file->getClientOriginalExtension();
+            $filename=time().'.'.$extention;
+            $file->move('uploads/staffs',$filename);
+            $staff->picture=$filename;
+        }
+
+        $staff->save();
      
         return redirect()->route('staff.view')
                         ->with('success','Info added successfully.');
     }
 
-    /**
-     * Display the specified resource.
-     *
-     * @param  \App\Models\Staff  $staff
-     * @return \Illuminate\Http\Response
-     */
     public function show(Staff $staff)
     {
         //
     }
 
-    /**
-     * Show the form for editing the specified resource.
-     *
-     * @param  \App\Models\Staff  $staff
-     * @return \Illuminate\Http\Response
-     */
+    
     public function edit($id)
     {
         $editdata=Staff::find($id);
@@ -73,32 +79,46 @@ class StaffController extends Controller
         return view('backend.staff.edit',compact('editdata'));
     }
 
-    /**
-     * Update the specified resource in storage.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @param  \App\Models\Staff  $staff
-     * @return \Illuminate\Http\Response
-     */
+    
     public function update(Request $request, Staff $staff,$id)
     {
-        //  $request->validate([
-        //     'name' => 'required',
-        //     'detail' => 'required',
-        // ]);
+          $request->validate([
+          'staffid' => 'required',
+           'staffname' => 'required',
+           'email' => 'required',
+           'phone' => 'required | numeric',
+           'dateofbirth' => 'required',
+           'password' => 'required',
+           'security_question' => 'required',
+           'answer' => 'required',
+           'status' => 'required',
+           'picture' => 'mimes:jpg,bmp,png',
+        ]);
 
-        $data=Staff::find($id);
-        $data->staffid=$request->staffid;
-        $data->staffname=$request->staffname;
-        $data->email=$request->email;
-        $data->phone=$request->phone;
-        $data->dateofbirth=$request->dateofbirth;
-        $data->password=$request->password;
-        $data->security_question=$request->security_question;
-        $data->answer=$request->answer;
-        $data->picture=$request->picture;
-        $data->status=$request->status;
-        $data->save();
+         
+
+        $staff=Staff::find($id);
+        $staff->staffid=$request->staffid;
+        $staff->staffname=$request->staffname;
+        $staff->email=$request->email;
+        $staff->phone=$request->phone;
+        $staff->dateofbirth=$request->dateofbirth;
+        $staff->password=$request->password;
+        $staff->security_question=$request->security_question;
+        $staff->answer=$request->answer;
+        $staff->status=$request->status;
+
+        if ($request->hasfile('picture')){
+
+            $file=$request->file('picture');
+            $extention=$file->getClientOriginalExtension();
+            $filename=time().'.'.$extention;
+            $file->move('uploads/staffs',$filename);
+            $staff->picture=$filename;
+        }
+
+
+        $staff->save();
     
         
     
@@ -106,12 +126,8 @@ class StaffController extends Controller
                         ->with('success','Staff Info updated successfully');
     }
 
-    /**
-     * Remove the specified resource from storage.
-     *
-     * @param  \App\Models\Staff  $staff
-     * @return \Illuminate\Http\Response
-     */
+    
+
     public function delete(Staff $staff,$id)
     {
 

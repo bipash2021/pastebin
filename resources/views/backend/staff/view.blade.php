@@ -66,15 +66,15 @@
                             <td>{{$staff->security_question}}</td>
                             <td>{{$staff->answer}}</td>
                             <td>{{$staff->picture}}</td>
-                            <td>{{$staff->status}}</td>
+                            <td>{{($staff->status=='1')?'Active':'Inactive'}}</td>
                             <td>{{$staff->creationdate}}</td>
                             
                             <td><a title="edit" class="btn btn-sm btn-primary"href="{{route('staff.edit',$staff->id)}}">edit</i></a>
                           </td>
-                          <td><a title="delete" class="btn btn-sm btn-danger" data-toggle="modal" data-target="#myModal">delete</i></a>
+                          <td><a title="delete" class="btn btn-sm btn-danger" data-toggle="modal" data-target="#myModal{{$staff->id}}">delete</i></a>
                           <!-- Button to Open the Modal -->
                           <!-- The Modal -->
-                          <div class="modal" id="myModal">
+                          <div class="modal" id="myModal{{$staff->id}}">
                             <div class="modal-dialog">
                               <div class="modal-content">
                                 <!-- Modal Header -->
@@ -84,11 +84,11 @@
                                 </div>
                                 <!-- Modal body -->
                                 <div class="modal-body">
-                                  Are You Sure?
+                                  Are You Sure Want to delete {{$staff->staffname}}?
                                 </div>
                                 <!-- Modal footer -->
                                 <div class="modal-footer">
-                                  <a class="btn btn-md btn-danger" href="{{route('staff.delete',$staff->id)}}">Delete</a>
+                            <a class="btn btn-md btn-danger" href="{{route('staff.delete',$staff->id)}}">Delete</a>
                                   <button type="button" class="btn btn-primary" data-dismiss="modal">Cancel</button>
                                   
                                 </div>
