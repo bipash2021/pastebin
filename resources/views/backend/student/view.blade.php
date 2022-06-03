@@ -71,7 +71,7 @@
                             <td>{{$student->security_question}}</td>
                             <td>{{$student->answer}}</td>
                             <td>{{$student->picture}}</td>
-                            <td>{{$student->status}}</td>
+                           <td>{{($student->status=='1')?'Active':'Inactive'}}</td>
                             <td>{{$student->creationdate}}</td>
                             
         <td><a title="edit" class="btn btn-sm btn-primary"href="{{route('student.edit',$student->id)}}">edit</i></a>

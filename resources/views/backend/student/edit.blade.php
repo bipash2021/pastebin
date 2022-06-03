@@ -122,8 +122,11 @@
                     
                     <div class="col-xs-4 col-sm-4 col-md-4">
                       <div class="form-group">
-                        <strong>Status:</strong>
-                        <input type="text" name="status" class="form-control" value="{{$editdata->status}}">
+                        <strong>Status:&nbsp{{($editdata->status=='1')?'Active':'Inactive'}}</strong>
+                        <select name="status" class="form-control">
+                            <option  value="1">  Active </option>
+                            <option  value="0">  Inactive </option>
+                        </select>
                       </div>
                     </div>
                     

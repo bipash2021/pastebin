@@ -25,7 +25,7 @@ class CreateStaffTable extends Migration
             $table->string('security_question')->nullable();
             $table->string('answer')->nullable();
             $table->string('picture')->nullable();
-            $table->tinyInteger('status')->default(1);
+            $table->boolean('status')->default(1)->comment('0 = inactive, 1 = active');
             $table->timestamps();
             
         });

@@ -66,7 +66,7 @@
                             <td>{{$staff->security_question}}</td>
                             <td>{{$staff->answer}}</td>
                             <td>{{$staff->picture}}</td>
-                            <td>{{$staff->status}}</td>
+                            <td>{{($staff->status=='1')?'Active':'Inactive'}}</td>
                             <td>{{$staff->creationdate}}</td>
                             
                             <td><a title="edit" class="btn btn-sm btn-primary"href="{{route('staff.edit',$staff->id)}}">edit</i></a>

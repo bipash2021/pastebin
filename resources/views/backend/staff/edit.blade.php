@@ -126,12 +126,15 @@
                     
                     
                   
-                  <div class="col-xs-4 col-sm-4 col-md-4">
-                    <div class="form-group">
-                      <strong>Status:</strong>
-                      <input type="text" name="status" class="form-control" value="{{$editdata->status}}">
+                    <div class="col-xs-4 col-sm-4 col-md-4">
+                      <div class="form-group">
+                        <strong>Status:&nbsp{{($editdata->status=='1')?'Active':'Inactive'}}</strong>
+                        <select name="status" class="form-control">
+                            <option  value="1">  Active </option>
+                            <option  value="0">  Inactive </option>
+                        </select>
+                      </div>
                     </div>
-                  </div>
                   
                   <div class="col-xs-12 col-sm-12 col-md-12 text-right">
                     <button type="submit" class="btn btn-primary ">Update</button>
